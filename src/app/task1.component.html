@@ -1,11 +1,20 @@
 <div class="homework">
-  <textarea rows="10" [(ngModel)]="content"></textarea>
-  <button type="submit" (click)="parseTemplate()">Parse Template</button>
+  <textarea #userInput rows="10" [(ngModel)]="content"></textarea>
+	<div *ngIf="notifyDuplicates$ | async" class="notify-duplicates">Input has duplicate field names. Picking only unique
+		ones.</div>
 
+  <div>Parsed Template</div>
+	<div *ngIf="(form$ | async) as form" [formGroup]="form" class="form-container">
+		<div class="form-field" *ngFor="let field of getFormControlsKeys(form)">
+			<label for="{{field}}">{{field}}:</label>
+			<input id="{{field}}" [formControlName]="field">
+		</div>
+	</div>
 
-  <button type="submit" (click)="displayResult()">Display result</button>
-
-  <a href="javascript:void(0);" [routerLink]="['./task2']">Task2</a>
+  <div>Result</div>
+	<div *ngIf="(formResult$ | async) as formResult" class="result-container">
+		<div *ngFor="let field of formResult">{{field}}</div>
+	</div>
 </div>
 
 

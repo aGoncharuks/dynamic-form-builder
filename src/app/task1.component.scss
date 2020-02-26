@@ -1,0 +1,42 @@
+.homework  {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+
+  textarea,
+  .form-container,
+  .result-container {
+    width: 80%;
+    margin: 15px 0;
+  }
+
+  .result-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.form {
+  display: flex;
+  width: 80%;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.form-field {
+  label {
+    margin-right: 10px;
+    min-width: 130px;
+  }
+
+  display: flex;
+  margin: 20px 20px 0 0;
+}
+
+.notify-duplicates {
+  font-size: 12px;
+  color: red;
+  margin-bottom: 15px;
+}
