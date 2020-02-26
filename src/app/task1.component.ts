@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { NgModel, FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
-import { map, scan, share, startWith, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, map, scan, share, startWith, switchMap, tap } from 'rxjs/operators';
 import { APP_CONFIG, IAppConfig } from './tokens';
 
 @Component({
@@ -28,6 +28,7 @@ export class Task1Component implements OnInit {
 <div #placeholder_last_name></div>`;
     
     this.form$ = this.userInput.valueChanges.pipe(
+    	debounceTime(400),
       map(input => this.inputToFields(input)),
 	    tap(fields => this.checkFieldsForDuplicates(fields)),
 	    map(fields => this.fieldsToFormGroup(fields)),
@@ -37,6 +38,7 @@ export class Task1Component implements OnInit {
 	  
     this.formResult$ = this.form$.pipe(
     	switchMap(form => form.valueChanges.pipe(startWith(form.value))),
+      debounceTime(400),
     	map(value => Object.entries(value)),
     	map(fields => fields.map(field => this.fieldToResultForm(field)))
     )
